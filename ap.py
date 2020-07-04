@@ -1,9 +1,7 @@
-import quotes
 import random
 from flask import ( Flask, jsonify, render_template )
 
 app = Flask(__name__, template_folder="templates", static_url_path="/static")
-qs = []
 
 @app.route('/clear')
 def first():
@@ -11,25 +9,36 @@ def first():
 
 @app.route('/')
 def home():
-	entry = random.choice(qs)
+	entry = random.choice(read_quotes_file())
 	return render_template('home.html', author=entry['author'], quote=entry['quote'])
 
 @app.route('/quote')
 def get_quote():
-	return jsonify(random.choice(qs))
+	return jsonify(random.choice(read_quotes_file()))
 
 @app.route('/quotes', methods=['GET'])
 def get_all_quote():
-	return jsonify(qs)
+	return jsonify(read_quotes_file())
 
 @app.route('/add', methods=['POST'])
 def add_quote(author, quote):
-	f = open("propsed.txt", "a+")
+	f = open("proposed.txt", "a+")
 	f.write("\n{}|{}".format(author,quote))
 	f.close()
 
 
+def read_quotes_file():
+	qs = []
+	with app.open_resource("static/resources/quotes.txt") as q:
+		lines = q.readlines()
 
+	for line in lines:
+		q = line.decode().split("|")
+		qs.append({
+		'author':q[0],
+		'quote':q[1].rstrip() #rstrip() removes trailing \n
+		})
+	return qs
 
 ### Error handlers
 @app.errorhandler(404)
@@ -44,14 +53,4 @@ def page_not_found(e):
 
 ### launch
 if __name__ == "__main__":
-	with open("quotes.txt", encoding="utf8") as q:
-		lines = q.readlines()
-
-	for line in lines:
-		q = line.split("|")
-		qs.append({
-		'author':q[0],
-		'quote':q[1].rstrip() #rstrip() removes trailing \n
-		})
-		
-	app.run(debug=True)
+	app.run()
