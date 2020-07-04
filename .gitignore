@@ -1,6 +1,7 @@
 __pycache__/
 *.pyc
-
+static/resources/
 
 logs/
 *.log
+*.txt
