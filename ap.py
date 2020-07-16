@@ -1,5 +1,5 @@
 import random
-from flask import ( Flask, jsonify, render_template )
+from flask import ( Flask, jsonify, render_template, request )
 
 app = Flask(__name__, template_folder="templates", static_url_path="/static")
 
@@ -21,10 +21,14 @@ def get_all_quote():
 	return jsonify(read_quotes_file())
 
 @app.route('/add', methods=['POST'])
-def add_quote(author, quote):
-	f = open("proposed.txt", "a+")
+def add_quote():
+	f = open("static/resources/proposed.txt", "a+")
+	author = request.form.get("author")
+	quote = request.form.get("quote")
 	f.write("\n{}|{}".format(author,quote))
 	f.close()
+	return jsonify(success=True)
+
 
 
 def read_quotes_file():
