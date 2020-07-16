@@ -6,47 +6,79 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <style>
-body,h1 {font-family: "Raleway", sans-serif}
-body, html {height: 100%}
-.bgimg {
-  background-image: url('/static/resources/forestbridge.jpg');
-  min-height: 100%;
-  background-position: center;
-  background-size: cover;
-}
+    body,h1 {font-family: "Raleway", sans-serif}
+    body, html {height: 100%}
+    .bgimg {
+      background-image: url('/static/resources/forestbridge.jpg');
+      min-height: 100%;
+      background-position: center;
+      background-size: cover;
+    }
 
-.cntr {
-	text-align: center;
-}
+    .quote {
+      position:absolute;
+      top:50%;left:50%;
+      transform:translate(-50%,-50%);
+      -ms-transform:translate(-50%,-50%)
+    }
+
+    .centerize { 
+      position:absolute;
+      left:50%;
+      bottom:20px;
+      transform:translate(-50%,0%);
+      -ms-transform:translate(-50%,0%)
+    }
+
+    .button {
+      border-radius: 12px;
+      padding: 14px 40px;
+      background-color: #1368d1;
+      border: none;
+      text-decoration: none;
+      bottom: 50px;
+      cursor: pointer;
+    }
+
+    .white {
+      color:#fff!important
+    }
+
+    .centered {
+      text-align: center;
+    }
+
+    .giant {
+      font-size: 64px;
+    }
+
+    .large {
+      font-size: 18px;
+    }
+
+    .anim_top{
+      position:relative;
+      animation:animatetop 0.4s
+    }@keyframes animatetop{from{top:-300px;opacity:0} to{top:0;opacity:1}
+
 </style>
+
 <body>
 
-<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
-  <div class="w3-display-middle">
-    <h1 class="cntr w3-jumbo w3-animate-top">{{ quote }}</h1>
-    <hr class="w3-border-grey" style="margin:auto;width:40%">
-    <p class="w3-large w3-center">{{ author }}</p>
+
+<div class="bgimg white">
+  <div class="quote">
+    <h1 class="giant anim_top centered">{{ quote }}</h1>
+    <hr style="margin:auto;width:40%">
+    <p class="large centered">{{ author }}</p>
+  </div>
+  <div class="centerize">
+    <button class="button" onClick="window.location.reload()">
+      And another one
+    </button>    
   </div>
 </div>
 
+
 </body>
 </html>
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<title>сука блять</title>
-<nav>
-    <h1>сука блять</h1>
-</nav>
-<section class="content">
-    <header>
-    
-    </header>
-    <br>
-    <div>
-        <h3><b>{{ author }}</b></h3> <i>{{ quote }}</i>
-    </div>
-</section> -->
